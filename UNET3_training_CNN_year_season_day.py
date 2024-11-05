@@ -24,7 +24,7 @@ if gpus:
 		
 		
 #-------------------------------------------CNN layers-----------------------------------------------------------
-model_trained = load_model(PATH+'/models/model_40membres_input3286') #load an already trained UNET		
+model_trained = load_model('/model_40membres_input3286') #load an already trained UNET		
 encoder_output = model_trained.get_layer('conv2d_7').output #get the last layer of the UNET's encoder 
 x = Flatten()(encoder_output)
 
@@ -96,7 +96,7 @@ new_model.compile(optimizer=Adam(lr=1e-4), loss='categorical_crossentropy') #the
 									    # use loss='mse' for day prediction
 
 callback = [ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=4, verbose=1), EarlyStopping(monitor='val_loss', patience=5, verbose=1),
-                 ModelCheckpoint(PATH+'/models/model_season', monitor='val_loss', verbose=1, save_best_only=True),History()] #model_season or model_day or model_year
+                 ModelCheckpoint('model_season', monitor='val_loss', verbose=1, save_best_only=True),History()] #model_season or model_day or model_year
       
 tf.config.run_functions_eagerly(True)
 new_model.fit(x=X_train, y=Y_train, batch_size=1000,epochs=20,callbacks=callback, validation_data=(X_test,Y_test))
