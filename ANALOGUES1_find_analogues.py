@@ -9,7 +9,6 @@ For clarity, "target file" refers to the file containing days for which analogue
 
 TARGET = 'r5i1p1f1' 
 
-PATH = os.getcwd()
 
 def calcul_analogues(begin,end,member):
     #begin = first year in the target period (e.g., for 1950-1960, begin=1950 and end=1960)
@@ -17,7 +16,7 @@ def calcul_analogues(begin,end,member):
     #member = ID of the analogue members to compare (e.g., r10i1p1f1, r11i1p1f1, etc.)
     
     # Load the analogue file containing slp data
-    data_psl = xr.open_dataset(PATH+'/data/psl_day_MIROC6_unet_'+str(member)+'_noleapday.nc') 
+    data_psl = xr.open_dataset('psl_day_MIROC6_unet_'+str(member)+'_noleapday.nc') 
     
     # Calculate weights to correct for latitude-based distortions in high-latitude regions
     latitude = data_psl['lat'].values
@@ -39,11 +38,11 @@ def calcul_analogues(begin,end,member):
     end_ana = total_period.index('2100-12-31') # Analogue search period end (2100)
     
     # Extract date and slp data for the analogue and target periods
-    dates_analogues = xr.open_dataset(PATH+'/data/psl_day_MIROC6_unet_'+str(member)+'_noleapday.nc')['time'].values[begin_ana:end_ana+1]
+    dates_analogues = xr.open_dataset('psl_day_MIROC6_unet_'+str(member)+'_noleapday.nc')['time'].values[begin_ana:end_ana+1]
     dates_analogues = np.datetime_as_string(dates_analogues,unit='D')
     
-    psl_analogue = xr.open_dataset(PATH+'/data/psl_day_MIROC6_unet_'+str(member)+'_noleapday.nc')['psl'].values[begin_ana:end_ana+1] #analogue file
-    psl_target = xr.open_dataset(PATH+'/data/psl_day_MIROC6_unet_'+str(TARGET)+'_noleapday.nc')['psl'].values[begin_window:end_window+1] #target file
+    psl_analogue = xr.open_dataset'psl_day_MIROC6_unet_'+str(member)+'_noleapday.nc')['psl'].values[begin_ana:end_ana+1] #analogue file
+    psl_target = xr.open_dataset('psl_day_MIROC6_unet_'+str(TARGET)+'_noleapday.nc')['psl'].values[begin_window:end_window+1] #target file
 
     target_analogues = []  # List to store the results of analogue calculation
     
@@ -86,14 +85,9 @@ def calcul_analogues(begin,end,member):
             target_analogues.append((j,analogues_dates[a],analogues_dis[a]))
     
     dataframe = pd.DataFrame(target_analogues)
-    dataframe.to_csv(PATH+'/data/TARGET'+str(TARGET)+'_'+str(begin)+'_'+str(end)+'_'+str(member)+'.csv',mode='a',index=False, header=False)
-
-
+    dataframe.to_csv('TARGET'+str(TARGET)+'_'+str(begin)+'_'+str(end)+'_'+str(member)+'.csv',mode='a',index=False, header=False)
 
 calcul_analogues(1950,2022,'r10i1p1f1')
 
    
     
-
-
-
