@@ -101,7 +101,7 @@ X_train,X_test,Y_train,Y_test=train_test_split(slp_ano,tas_ano,test_size=0.2)  #
 model.compile(loss='mse', optimizer=Adam(learning_rate=1e-3),metrics=['mse'])    
     
 callback = [ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=4, verbose=1), EarlyStopping(monitor='val_loss', patience=10, verbose=1),
-                 ModelCheckpoint(PATH+'/trained_models/model_40members_input3286', monitor='val_loss', verbose=1, save_best_only=True),History()] 
+                 ModelCheckpoint('/model_40members_input3286', monitor='val_loss', verbose=1, save_best_only=True),History()] 
 
 tf.config.run_functions_eagerly(True)
 
