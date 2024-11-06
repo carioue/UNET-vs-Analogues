@@ -3,7 +3,6 @@ import numpy as np
 import keras
 import tensorflow as tf
 from tensorflow.keras.models import load_model, Model
-import os
 
 """ This code test the model 'model_40membres_input3286' on a member not used in the training """
 
