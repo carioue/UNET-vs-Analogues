@@ -4,11 +4,14 @@ import pandas as pd
 import os
 
 
-"""This code calculates analogues of each day in the TARGET member among other members.
-For clarity, "target file" refers to the file containing days for which analogues are sought, while "analogue file" refers to the file where analogues are searched."""
+"""This code calculates analogues of each day of the TARGET member among other members.
+For clarity, "target file" refers to the file containing days for which analogues are sought, while "analogue file" refers to the file where analogues are searched.
+
+Sea level pressure data are available thanks to climate modeling groups involved in CMIP6. 
+"""
+
 
 TARGET = 'r5i1p1f1' 
-
 
 def calcul_analogues(begin,end,member):
     #begin = first year in the target period (e.g., for 1950-1960, begin=1950 and end=1960)
