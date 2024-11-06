@@ -5,7 +5,7 @@ from pandas import*
 import matplotlib.pyplot as plt
 import os
 
-""" This code compare the analogues of the 40 members and select for each target day the 20 smallests analogues """
+""" This code compare the analogues of the 40 members and select for each target day the 20 smallest analogues """
 PATH = os.getcwd()
      
 TARGET = 'r1i1p1f1'
