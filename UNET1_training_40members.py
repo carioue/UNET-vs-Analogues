@@ -27,6 +27,7 @@ if gpus:
 		
 # Code from http://gitlab.meteo.fr/haradercoustaue/dourya_weather/-/blob/main/emu_funs.py?ref_type=heads		
 
+#-----------------------------------------UNET construction-----------------------------------------------
 def highestPowerof2(n):
     res = 0;
     for i in range(n, 0, -1):
@@ -90,8 +91,14 @@ c5 = Conv2D(1, 3, activation='linear', padding='same')(c1)
 
 
 model = Model(inputs=inputUnet, outputs=c5)    
- 
-# Load Data   
+#---------------------------------------------------------------------------------------------
+
+#----------------------------------------- Load Data -----------------------------------------
+"""MIROC6 sea level pressure of 40 simulations (members) are available thanks to CMIP6 working groups. Here a pre-processing is done on raw data to normalize data: mean and standard deviation 
+are computed for each grid point on the daily data of the 40 concatenated training members.
+Same for raw temperatures and then a pre-process is done to calculate anomalies: non stationary normals are calculated with routines from https://gitlab.com/ribesaurelien/france_study.
+"""
+
 slp_ano = xr.open_dataset('/MIROC6/psl_day_MIROC6_unet_r10_r50_18802100_CentreReduit.nc').psl # normalized sea level pressure of the 40 training members (input)
 tas_ano = xr.open_dataset('/MIROC6/anomalies_40membres.nc').tasano # temperature anomalies of the 40 training members (output)
     
@@ -101,7 +108,7 @@ X_train,X_test,Y_train,Y_test=train_test_split(slp_ano,tas_ano,test_size=0.2)  #
 model.compile(loss='mse', optimizer=Adam(learning_rate=1e-3),metrics=['mse'])    
     
 callback = [ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=4, verbose=1), EarlyStopping(monitor='val_loss', patience=10, verbose=1),
-                 ModelCheckpoint('/model_40members_input3286', monitor='val_loss', verbose=1, save_best_only=True),History()] 
+                 ModelCheckpoint('model_40members_input3286', monitor='val_loss', verbose=1, save_best_only=True),History()] 
 
 tf.config.run_functions_eagerly(True)
 
