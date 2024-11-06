@@ -3,7 +3,10 @@ import xarray as xr
 import pandas as pd
 import os
 
-""" This code reconstructs daily temperatures from the analogues  """
+""" This code reconstructs daily temperatures from the analogues  
+As SLP data, raw temperature data are available thanks to CMIP6 working groups. Here temperatures are pre-processed to calculate temperature anomalies: routines from https://gitlab.com/ribesaurelien/france_study 
+are used to compute non stationary normals.
+"""
 
 jours=[]
 dates =xr.open_dataset('psl_day_MIROC6_unet_r5i1p1f1_noleapday.nc").sel(time=slice(f'{1880}-01-01',f'{2100}-12-31')).time
