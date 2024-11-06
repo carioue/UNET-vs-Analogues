@@ -4,7 +4,7 @@ import pandas as pd
 import os
 
 
-"""This code calculates analogues of each day in the TARGET member, comparing with other members.
+"""This code calculates analogues of each day in the TARGET member among other members.
 For clarity, "target file" refers to the file containing days for which analogues are sought, while "analogue file" refers to the file where analogues are searched."""
 
 TARGET = 'r5i1p1f1' 
