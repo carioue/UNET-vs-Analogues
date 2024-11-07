@@ -1,6 +1,6 @@
 # UNET-vs-Analogues
 
-Codes associated with Estimation of the atmospheric circulation contribution to the European temperature variability with convolutional neural network, submitted to GRL. Associated data is available here: ??
+Codes associated with Estimation of the atmospheric circulation contribution to the European temperature variability with convolutional neural network, submitted to GRL. Associated data is available here: https://zenodo.org/records/14046994
 
 ### Analogues
 - ANALOGUES1_find_analogues.py : this script calculates the analogues of each day of the target member among the other 40 members.
