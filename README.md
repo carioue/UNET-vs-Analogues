@@ -17,4 +17,4 @@ Codes associated with Estimation of the atmospheric circulation contribution to 
 - model_year : model trained to predict the year
 
 ### Plot figures
-- Figures.ipynb : in the paper the figures correspond the 10 reconstructions. Here this notebook has been adapted to plot the results for only one reconstruction and the data associated to this notebook is available on ??
+- Figures.ipynb : in the paper the figures correspond the 10 reconstructions. Here this notebook has been adapted to plot the results for only one reconstruction and the data associated to this notebook is available on https://zenodo.org/records/14046994
