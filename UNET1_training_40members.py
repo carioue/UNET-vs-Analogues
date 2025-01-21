@@ -80,22 +80,17 @@ class TemperatureSLPDataset(tf.keras.utils.Sequence):
         self.slp_data = xr.open_dataset(slp_file)['psl']
         self.tas_data = xr.open_dataset(tas_file)['tasano']
         self.batch_size = batch_size
-        self.indices = np.arange(len(self.slp_data)) 
 
     def __len__(self):
         return int(np.ceil(len(self.slp_data) / self.batch_size))
 
     def __getitem__(self, idx):
-        # get indices for this batch
-        batch_indices = self.indices[idx * self.batch_size:(idx + 1) * self.batch_size]
+        slp = self.slp_data[idx * self.batch_size:(idx + 1) * self.batch_size].values
+        tas = self.tas_data[idx * self.batch_size:(idx + 1) * self.batch_size].values
 
-        # get slp and temperatures
-        slp = self.slp_data[batch_indices].values
-        tas = self.tas_data[batch_indices].values
-
-        # convert to tensor 
-        slp_tensor = tf.convert_to_tensor(np.expand_dims(slp,axis=-1),dtype=tf.float32)
-        tas_tensor = tf.convert_to_tensor(np.expand_dims(tas, axis=-1),dtype=tf.float32)
+        # Add channel dimension
+        slp_tensor = np.expand_dims(slp, axis=-1)
+        tas_tensor = np.expand_dims(tas, axis=-1)
       
         return slp_tensor, tas_tensor
   
