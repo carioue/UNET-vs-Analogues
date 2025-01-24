@@ -1,4 +1,4 @@
-mport tensorflow as tf
+import tensorflow as tf
 from tensorflow.keras import layers, models, optimizers
 import numpy as np
 import xarray as xr
